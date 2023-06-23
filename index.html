@@ -16,7 +16,7 @@
 
 
   <script src="https://kit.fontawesome.com/9dde177f4a.js" crossorigin="anonymous"></script>
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -206,54 +206,59 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-      
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-body">
-               
-                <div class="mb-3">
-                  <label for="" class="form-label">Titulo</label>
-                  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-                
-                <br>
-                <label for="" class="form-label">Descripcion</label>
-                <p class="card-text">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                      <label for="floatingTextarea2"></label>
-                  </div>
-                </p>
 
-                <br>
-                <label for="" class="form-label">Estado</label>
-                <select class="form-select" id="status" aria-label="Default select example">
-                  <option value="1" selected>Pendiente</option>
-                  <option value="2">Cancelada</option>
-                  <option value="3">En ejecución</option>
-                  <option value="4">Por verificar</option>
-                  <option value="5">Finalizada</option>
-                </select>
+            <div class="col">
+              <div class="card shadow-sm">
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <label for="" class="form-label">Titulo</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                  </div>
+
+                  <br>
+                  <label for="" class="form-label">Descripcion</label>
+                  <p class="card-text">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                      style="height: 100px"></textarea>
+                    <label for="floatingTextarea2"></label>
+                  </div>
+                  </p>
+
+                  <br>
+                  <label for="" class="form-label">Estado</label>
+                  <select class="form-select" id="status" aria-label="Default select example">
+                    <option value="1" selected>Pendiente</option>
+                    <option value="2">Cancelada</option>
+                    <option value="3">En ejecución</option>
+                    <option value="4">Por verificar</option>
+                    <option value="5">Finalizada</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        
+
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="save">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="save">Crear</button>
           </div>
         </div>
       </div>
     </div>
 
-
     <div class="album py-4 bg-body-tertiary">
       <div class="container">
+        <button type="button" class="btn btn-outline-primary" id="getAll" onclick="getAll()">Todas</button>
+        <button type="button" class="btn btn-outline-primary" id="getAllStatusAsc" onclick="getAllStatusAsc()">Ordenar
+          por estado ASC <i class="fa-solid fa-arrow-up"></i></button>
+        <button type="button" class="btn btn-outline-primary" id="getAllStatusDesc" onclick="getAllStatusDesc()">Ordenar
+          por estado DESC <i class="fa-solid fa-arrow-down"></i></button>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="mainCards">
-          
-        </div>
+        <br><br>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="mainCards"> </div>
       </div>
     </div>
 
@@ -266,106 +271,108 @@
       </p>
     </div>
   </footer>
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 <script>
   const baseUrl = "https://ufps-notes.herokuapp.com"
+  // const baseUrl = "http://localhost:3000"
 
-//   const data = [
-//    {
-//       "id":1,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":2,
-//       "statusUpdatedAt":"2023-05-26T13:59:19.000Z",
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":2,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":1,
-//       "statusUpdatedAt":null,
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":3,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":1,
-//       "statusUpdatedAt":null,
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":4,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":2,
-//       "statusUpdatedAt":null,
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":5,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":3,
-//       "statusUpdatedAt":null,
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":6,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":2,
-//       "statusUpdatedAt":null,
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":7,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":1,
-//       "statusUpdatedAt":null,
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    },
-//    {
-//       "id":8,
-//       "title":"Mi nota",
-//       "description":"Una descripción",
-//       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "reminder":null,
-//       "status":1,
-//       "statusUpdatedAt":"2023-05-26T14:21:02.000Z",
-//       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
-//       "createdByUser.name":"Jhoana"
-//    }
-// ]
 
-  const status =[
+  //   const data = [
+  //    {
+  //       "id":1,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":2,
+  //       "statusUpdatedAt":"2023-05-26T13:59:19.000Z",
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":2,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":1,
+  //       "statusUpdatedAt":null,
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":3,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":1,
+  //       "statusUpdatedAt":null,
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":4,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":2,
+  //       "statusUpdatedAt":null,
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":5,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":3,
+  //       "statusUpdatedAt":null,
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":6,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":2,
+  //       "statusUpdatedAt":null,
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":7,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":1,
+  //       "statusUpdatedAt":null,
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    },
+  //    {
+  //       "id":8,
+  //       "title":"Mi nota",
+  //       "description":"Una descripción",
+  //       "createdBy":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "reminder":null,
+  //       "status":1,
+  //       "statusUpdatedAt":"2023-05-26T14:21:02.000Z",
+  //       "createdByUser.id":"7b40d42b-20eb-44cf-9c21-e6a1bf99321e",
+  //       "createdByUser.name":"Jhoana"
+  //    }
+  // ]
+
+  const status = [
     { id: "1", name: "Pendiente" },
     { id: "2", name: "Cancelada" },
     { id: "3", name: "En ejecución" },
@@ -375,24 +382,123 @@
 
   getAll()
 
-  $(document).ready(function() {
-    $("#save").click(function() {
+  $(document).ready(function () {
+    $("#save").click(function () {
       const title = $("#exampleFormControlInput1").val()
       const description = $("#floatingTextarea2").val()
       const status = $("#status").val()
-      const createdBy="7b40d42b-20eb-44cf-9c21-e6a1bf99321e"
-      console.log( {title,description,status});
+      const createdBy = "7b40d42b-20eb-44cf-9c21-e6a1bf99321e"
+      console.log({ title, description, status });
       axios.post(`${baseUrl}/notes`, {
         title,
         description,
         status,
         createdBy
       })
+        .then(function (response) {
+          console.log(response.data);
+
+          $('#exampleModal').modal('hide')
+
+          $("#mainCards").empty()
+          getAll()
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+    });
+  });
+
+
+  function getAll() {
+    clearNotes()
+    axios.get(`${baseUrl}/notes`)
+      .then(function (response) {
+        // La solicitud fue exitosa, puedes acceder a los datos de respuesta en 'response.data'
+        console.log(response.data);
+        const data = response.data
+        // $(document).ready(function () {
+        data.forEach(element => {
+          $("#mainCards").append(getCardByElement(element))
+        })
+        // });
+      })
+      .catch(function (error) {
+        // Ocurrió un error durante la solicitud
+        console.error(error);
+      });
+  }
+
+  function getAllStatusAsc() {
+    clearNotes()
+    axios.get(`${baseUrl}/notes?orderByStatus=ASC`)
+      .then(function (response) {
+        // La solicitud fue exitosa, puedes acceder a los datos de respuesta en 'response.data'
+        console.log(response.data);
+        const data = response.data
+        // $(document).ready(function () {
+        data.forEach(element => {
+          $("#mainCards").append(getCardByElement(element))
+        })
+        // });
+      })
+      .catch(function (error) {
+        // Ocurrió un error durante la solicitud
+        console.error(error);
+      });
+  }
+
+
+  function getAllStatusDesc() {
+    clearNotes()
+    axios.get(`${baseUrl}/notes?orderByStatus=DESC`)
+      .then(function (response) {
+        // La solicitud fue exitosa, puedes acceder a los datos de respuesta en 'response.data'
+        console.log(response.data);
+        const data = response.data
+        // $(document).ready(function () {
+        data.forEach(element => {
+          $("#mainCards").append(getCardByElement(element))
+        })
+        // });
+      })
+      .catch(function (error) {
+        // Ocurrió un error durante la solicitud
+        console.error(error);
+      });
+  }
+
+
+  function deleteNote(id, title) {
+    if (confirm("¿Está seguro de eliminar la nota " + title + "?")) {
+      axios.delete(`${baseUrl}/notes/${id}`)
+        .then(function (response) {
+          console.log(response.data);
+          $("#mainCards").empty()
+          getAll()
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  }
+
+  function updateNote(cardId) {
+    const cardObject = $(`#${cardId}`)
+
+    const id = cardId.split("-")[2]
+    const title = cardObject.find(".note-title").val()
+    const description = cardObject.find(".note-description").val() || cardObject.find(".note-description-label").text()
+    const status = cardObject.find(".note-status").val()
+
+    axios.put(`${baseUrl}/notes/${id}`, {
+      title,
+      description,
+      status
+    })
       .then(function (response) {
         console.log(response.data);
-
-        $('#exampleModal').modal('hide')
-
         $("#mainCards").empty()
         getAll()
       })
@@ -400,98 +506,170 @@
         console.error(error);
       });
 
-    });
-  });
+  }
+
+  function calcularTiempoRelativo({ fechaInicial, fechaFinal = new Date().getTime() }) {
+    if (!fechaInicial) return fechaInicial
+    const DATE_UNITS = { // in seconds
+      year: 31536000,
+      month: 2629800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+      second: 1
+    }
+
+    const languageCode = 'es' // English
+    const rtf = new Intl.RelativeTimeFormat(
+      languageCode,
+      { numeric: 'auto' }
+    )
+
+    //func
+    const from = new Date(fechaInicial).getTime()
+    const now = fechaFinal
+
+    const elapsed = (from - now) / 1000
+
+    for (const unit in DATE_UNITS) {
+      if (Math.abs(elapsed) > DATE_UNITS[unit]) {
+        return rtf.format(
+          Math.floor(elapsed / DATE_UNITS[unit]),
+          unit
+        )
+      }
+    }
+    // if less than one second, then is now
+    return rtf.format(0, 'second')
+  }
+
+  function clearNotes() {
+    $(`#mainCards`).html("")
+  }
+
+  function pickdate(elementId) {
+    //get element
+    let obj = $(`#time-input-${elementId}`)[0]
+    console.log({ obj });
+
+    //catch data
+    const pickedDate = obj.value// '2018-06-12T19:30'
+    const cardId = obj.getAttribute("cardId")
+    console.log({ pickedDate, cardId })
+
+    //make post to api to set reminder
+    axios.post(`${baseUrl}/notes/reminder`, {
+      noteId: cardId,
+      reminderDate: pickedDate
+    })
+      .then(function (response) {
+        console.log(response.data);
+
+        $(`#reminderModal${elementId}`).modal('hide')
+
+        $("#mainCards").empty()
+        getAll()
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
 
 
-  function getAll(){
-    axios.get(`${baseUrl}/notes`)
-  .then(function (response) {
-    // La solicitud fue exitosa, puedes acceder a los datos de respuesta en 'response.data'
-    console.log(response.data);
-    const data = response.data
-    // $(document).ready(function () {
-      data.forEach(element =>{
-        const card = `
+  function getCardByElement(element) {
+    const cardId = `card-note-${element.id}`
+    const card = `
           <div class="col">
               <div class="card shadow-sm">
-                <div class="card-body">
-                  <h2>${element.title}</h2>
+                <div class="card-body" id="${cardId}">
+                  <input style="width:100%; border:none; border-width:0px; font-size: 2rem" type="text" class="note-title" value="${element.title}"/>
                   <p class="card-text">
                     
                     <div class="form-floating">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">${element.description}</label>
+                      <textarea class="form-control note-description" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2" class="note-description-label">${element.description}</label>
                     </div>
                     <br>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select note-status" aria-label="Default select example">
                       ${status.map((item) => {
-                        if(item.id == element.status) {
-                          return `<option value="${item.id}" selected>${item.name}</option>`
-                        }else{
-                          return `<option value="${item.id}">${item.name}</option>`
-                        }
-                      })}
+      if (item.id == element.status) {
+        return `<option value="${item.id}" selected>${item.name}</option>`
+      } else {
+        return `<option value="${item.id}">${item.name}</option>`
+      }
+    })}
                     </select>
                   </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <div class="clickeable">
+                      <div class="clickeable" onclick="updateNote('${cardId}')">
                         <i class="fa-solid fa-floppy-disk mx-1"></i>
                       </div>
-                      <div class="clickeable">
+                      <div class="clickeable" onclick="deleteNote(${element.id},'${element.title}')">
                         <i class="fa-solid fa-trash mx-2"></i>
                       </div>
-                      <div class="clickeable" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fa-solid fa-bell"></i>
+
+                      <div class="clickeable" data-bs-toggle="modal" data-bs-target="#reminderModal${element.id}">
+                        <i class="fa-solid fa-bell ${element['reminderReminder.date'] ? 'text-primary' : ''}"></i>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal " id="reminderModal${element.id}" tabindex="-1" aria-labelledby="reminderModal${element.id}Label"
                           aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">RECORDATORIO</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
+                                <h1 class="modal-title fs-5" id="reminderModal${element.id}Label"><i class="fa-solid fa-bell  "></i> RECORDATORIO</h1>
+                        
                               </div>
                               <div class="modal-body">
-                                mucho texto
+                                Escoge la hora y fecha para recordarte esta nota
+
+                                <br> <br>
+
+                                <input type="datetime-local" id="time-input-${element.id}" name="meeting-time" value="${getDate(element?.['reminderReminder.date']) || '2023-06-23T19:30'}" min="2023-06-21T19:30"
+      cardId="${element.id}" max="2025-06-14T00:00" >
                               </div>
-                              <div class="clickeable my-2">
-                                <i class="fa-solid fa-floppy-disk text-center container"></i>
-                              </div>
+                          
+                              <br> 
+
+                              <button type="button" class="btn btn-primary" onclick="pickdate('${element.id}')">Guardar <i class="fa-solid fa-floppy-disk text-center container"></i></button>
+
                             </div>
                           </div>
                         </div>
                       </div>
+                      
                     </div>
-                    <small class="text-body-secondary">Hace ${calcularTiempoRelativo({fechaInicial:element.statusUpdatedAt})} minutos</small>
+                    <small class="text-body-secondary"> ${element.statusUpdatedAt ? `${calcularTiempoRelativo({ fechaInicial: element.statusUpdatedAt })}` : ``}</small>
                   </div>
                 </div>
               </div>
             </div>
         `
-        $("#mainCards").append(card)
-      })
-    // });
-  })
-  .catch(function (error) {
-    // Ocurrió un error durante la solicitud
-    console.error(error);
-  });
+    return card
   }
 
-  function calcularTiempoRelativo({fechaInicial, fechaFinal = new Date()}) {
-    let tiempoTranscurrido = fechaFinal - new Date(fechaInicial);
+  function getDate(originalDateStr) {
+    if (!originalDateStr) return originalDateStr
 
-    let segundos = Math.floor(tiempoTranscurrido / 1000);
-    let minutos = Math.floor(segundos / 60);
+    // Create a Date object from the original date string
+    var originalDate = new Date(originalDateStr);
 
-    segundos %= 60;
-    minutos %= 60;
-  
-    return minutos
+    // Extract the desired components
+    var desiredYear = originalDate.getFullYear();
+    var desiredMonth = originalDate.toLocaleString('default', { month: 'numeric' }).padStart(2, '0');
+    var desiredDay = originalDate.getDate();
+    var desiredHour = originalDate.getHours();
+    var desiredMinute = originalDate.getMinutes();
+
+    // Create the formatted date string
+    var formattedDate = desiredYear + '-' + desiredMonth + '-' + desiredDay + 'T' + ('0' + desiredHour).slice(-2) + ':' + ('0' + desiredMinute).slice(-2);
+
+    // Print the formatted date
+    console.log("Formatted date: " + formattedDate);
+
+    return formattedDate
   }
+
 </script>
 
 </html>
